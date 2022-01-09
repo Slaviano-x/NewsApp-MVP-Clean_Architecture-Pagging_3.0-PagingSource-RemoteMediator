@@ -17,11 +17,15 @@ import com.tyryshkin.newsapp.models.entities.News
 import com.tyryshkin.newsapp.ui.web.WebActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
+import com.tyryshkin.newsapp.appComponent
+import com.tyryshkin.newsapp.data.network.ApiUtilities
+import com.tyryshkin.newsapp.data.network.NewsApiService
 import com.tyryshkin.newsapp.data.room.NewsDatabase
 import com.tyryshkin.newsapp.ui.news.adapters.NewsAdapter
 import com.tyryshkin.newsapp.ui.news.adapters.NewsLoadStateAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @ExperimentalPagingApi
 class NewsActivity : AppCompatActivity(), NewsInterface, Navigator {
@@ -36,12 +40,17 @@ class NewsActivity : AppCompatActivity(), NewsInterface, Navigator {
 
     private lateinit var newsPresenter: NewsPresenter
 
+    //@Inject lateinit var newsApiService: NewsApiService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_main)
 
+        //appComponent.inject(this)
+
         newsPresenter = NewsPresenter(
             NewsDatabase.getInstance(this),
+            ApiUtilities.getNewsApiService(),
             this,
             this,
             getConnectivityManager())

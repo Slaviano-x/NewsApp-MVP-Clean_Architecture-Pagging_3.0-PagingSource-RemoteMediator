@@ -7,19 +7,18 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
-@Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
     @ExperimentalPagingApi
     fun inject(newsActivity: NewsActivity)
 
-    @Component.Builder
+    /*@Component.Builder
     interface Builder {
 
         @BindsInstance
         fun application(application: Application): Builder
 
         fun create(): AppComponent
-    }
+    }*/
 }

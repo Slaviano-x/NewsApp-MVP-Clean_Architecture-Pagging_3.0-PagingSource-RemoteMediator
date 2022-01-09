@@ -6,6 +6,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.tyryshkin.newsapp.data.network.ApiUtilities
+import com.tyryshkin.newsapp.data.network.NewsApiService
 import com.tyryshkin.newsapp.data.network.NewsPagingSource
 import com.tyryshkin.newsapp.data.room.NewsDatabase
 import com.tyryshkin.newsapp.models.entities.News
@@ -13,6 +14,7 @@ import com.tyryshkin.newsapp.models.entities.News
 @ExperimentalPagingApi
 class NewsPresenter(
     newsDatabase: NewsDatabase,
+    newsApiService: NewsApiService,
     private var newsInterface: NewsInterface,
     private val navigator: Navigator,
     private val connectivityManager: ConnectivityManager
@@ -21,7 +23,7 @@ class NewsPresenter(
 
     private val newsPagingSource: NewsPagingSource.Factory = object: NewsPagingSource.Factory {
         override fun create(): NewsPagingSource {
-            return NewsPagingSource(ApiUtilities.getNewsApiService())
+            return NewsPagingSource(newsApiService)
         }
     }
 
@@ -54,5 +56,4 @@ class NewsPresenter(
             else -> false
         }
     }
-    //check branch
 }

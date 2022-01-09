@@ -54,5 +54,5 @@ class NewsPresenter(
             else -> false
         }
     }
-    //check github
+    //check branch
 }
